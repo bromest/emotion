@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function RunSentimentAnalysis() {
+            var textToAnalyze = document.getElementById("textToAnalyze").value;
+            $.ajax({
+                url: "/emotionDetector",
+                type: "GET",
+                data: { textToAnalyze: textToAnalyze },
+                success: function(response) {
+                    document.getElementById("system_response").innerHTML = response;
+                },
+                error: function() {
+                    document.getElementById("system_response").innerHTML = "Error analyzing text!";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Emotion Detector</h1>
+    <label for="textToAnalyze">Enter Text for Emotion Analysis:</label><br><br>
+    <textarea id="textToAnalyze" name="textToAnalyze" rows="4" cols="50"></textarea><br><br>
+    <button onclick="RunSentimentAnalysis()">Run Analysis</button>
+    <br><br>
+    <div id="system_response"></div>
+</body>
+</html>
